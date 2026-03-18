@@ -1,4 +1,5 @@
-﻿
+﻿https://github.com/okovtun/PV_521_ADO.git
+https://www.youtube.com/playlist?list=PLeqyOOqxeiIMIBRDL6SmWMOXN4eIST_5N
 ADO.NET (ActiveX Data Object)
 MS SQL Server, MySQL, Oracle-DB, SQLite,.....;
 ??? IBM ???
