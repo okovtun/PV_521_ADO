@@ -38,6 +38,13 @@ namespace PV_521_ADO
 			reader.Close();
 			connection.Close();
 		}
+		public void Select(string fields, string tables, string condition = "")
+		{
+			string cmd = $"SELECT {fields} FROM {tables}";
+			if (condition != "") cmd += $" WHERE {condition}";
+			cmd += ";";
+			Select(cmd);
+		}
 		public object Scalar(string cmd)
 		{
 			object result = null;
@@ -48,6 +55,41 @@ namespace PV_521_ADO
 
 			connection.Close();
 			return result;
+		}
+		public int GetMaxPrimaryKey(string table)
+		{
+			string cmd = $"SELECT * FROM {table}";
+			SqlCommand command = new SqlCommand(cmd, connection);
+			connection.Open();
+			SqlDataReader reader = command.ExecuteReader();
+			string pk_name = reader.GetName(0);
+			reader.Close();
+			connection.Close();
+			return (int)Scalar($"SELECT MAX({pk_name}) FROM {table}");
+		}
+		public int GetNextPrimaryKey(string table)
+		{
+			return GetMaxPrimaryKey(table) + 1;
+		}
+
+		public void Insert(string cmd)
+		{
+			SqlCommand command = new SqlCommand(cmd, connection);
+			connection.Open();
+			try
+			{
+				command.ExecuteNonQuery();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.GetType());
+				Console.WriteLine(ex.Message);
+				if (ex.GetType() == typeof(SqlException) && ex.Message.Contains("_id"))
+				{
+					Console.WriteLine("Good");
+				}
+			}
+			connection.Close();
 		}
 	}
 }
