@@ -102,7 +102,8 @@ namespace Academy
 		private void buttonAddStudent_Click(object sender, EventArgs e)
 		{
 			studentForm = new StudentForm();
-			studentForm.ShowDialog();
+			if (studentForm.ShowDialog() == DialogResult.OK)
+				tabControl_SelectedIndexChanged(tabControl, null);
 		}
 	}
 }
