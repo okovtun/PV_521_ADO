@@ -12,6 +12,8 @@ namespace Academy
 {
 	public partial class StudentForm : HumanForm
 	{
+		internal Models.Student student;
+
 		public StudentForm()
 		{
 			InitializeComponent();
@@ -31,12 +33,17 @@ namespace Academy
 		}
 		protected override void buttonOK_Click(object sender, EventArgs e)
 		{
-			DataBase.Connector.Insert
-				(
-				"Students",
-				"last_name,first_name,middle_name,birth_date,email,phone,[group]",
-				$"{tbLastName.Text},{tbFirstName.Text},{tbMiddleName.Text},{dtpBirthDate.Value.ToString("yyyy-MM-dd")},{tbEmail.Text},{tbPhone.Text},{cbGroup.SelectedValue}"
-				);
+			base.buttonOK_Click(sender, e);
+
+			student = new Models.Student(human,Convert.ToInt32(cbGroup.SelectedValue));
+			DataBase.Connector.Insert("Students", $"{student.GetNames()}", $"{student.GetValues()}");
+
+			//DataBase.Connector.Insert
+			//	(
+			//	"Students",
+			//	"last_name,first_name,middle_name,birth_date,email,phone,[group]",
+			//	$"{tbLastName.Text},{tbFirstName.Text},{tbMiddleName.Text},{dtpBirthDate.Value.ToString("yyyy-MM-dd")},{tbEmail.Text},{tbPhone.Text},{cbGroup.SelectedValue}"
+			//	);
 		}
 	}
 }

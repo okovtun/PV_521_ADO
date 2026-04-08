@@ -12,15 +12,28 @@ using System.Configuration;
 
 namespace Academy
 {
-	public abstract partial class HumanForm : Form
+	public partial class HumanForm : Form
 	{
+		internal Models.Human human;
 		//static protected DBtools.Connector connector;
-		public HumanForm()
+		protected HumanForm()
 		{
 			InitializeComponent();
 			//connector = new DBtools.Connector(ConfigurationManager.ConnectionStrings["PV_521_Import"].ConnectionString);
 		}
 
-		protected abstract void buttonOK_Click(object sender, EventArgs e);
+		protected virtual void buttonOK_Click(object sender, EventArgs e)
+		{
+			human = new Models.Human
+				(
+				tbLastName.Text,
+				tbFirstName.Text,
+				tbMiddleName.Text,
+				dtpBirthDate.Value.ToString("yyyy-MM-dd"),
+				tbEmail.Text,
+				tbPhone.Text,
+				pbPhoto.Image
+				);
+		}
 	}
 }

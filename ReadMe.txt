@@ -4,6 +4,8 @@ ADO.NET (ActiveX Data Object)
 MS SQL Server, MySQL, Oracle-DB, SQLite,.....;
 ??? IBM ???
 
+ADO.NET
+
 TODO:
 0. Создать ветку 'InsertStudentsHW';
 1. При добавлении студента он должен сразу же отображаться в списке студентов;	DONE
