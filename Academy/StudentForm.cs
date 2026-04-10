@@ -18,12 +18,13 @@ namespace Academy
 		{
 			InitializeComponent();
 
-			tbLastName.Text = "Жук";
-			tbFirstName.Text = "Василий";
-			tbMiddleName.Text = "Петрович";
-			dtpBirthDate.Text = "1977.10.24";
-			tbEmail.Text = "bazilik_spb@mail.ru";
-			tbPhone.Text = "+7(911)024-56-78";
+			//tbLastName.Text = "Жук";
+			//tbFirstName.Text = "Василий";
+			//tbMiddleName.Text = "Петрович";
+			//dtpBirthDate.Text = "1977.10.24";
+			//tbEmail.Text = "bazilik_spb@mail.ru";
+			//tbPhone.Text = "+7(911)024-56-78";
+
 			//tbLastName.Text = "+7(911)024-56-78";
 
 			DataTable groups = DataBase.Connector.Select("SELECT * FROM Groups");
