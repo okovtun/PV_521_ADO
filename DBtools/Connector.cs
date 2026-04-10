@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
+using System.IO;
 
 namespace DBtools
 {
@@ -164,10 +166,29 @@ AND CONSTRAINT_NAME LIKE N'PK_%'";
 		{
 			string cmd = $"UPDATE {table} SET {field}=@image WHERE {GetPrimaryKeyColumnName(table)}={id}";
 			SqlCommand command = new SqlCommand(cmd, connection);
-			command.Parameters.Add("@image", SqlDbType.VarBinary).Value=image;
+			command.Parameters.Add("@image", SqlDbType.VarBinary).Value = image;
 			connection.Open();
 			command.ExecuteNonQuery();
 			connection.Close();
+		}
+		public Image DownloadPhoto(string table, string field, int id)
+		{
+			Image photo = null;
+			string cmd = $"SELECT {field} FROM {table} WHERE {GetPrimaryKeyColumnName(table)}={id}";
+			SqlCommand command = new SqlCommand(cmd, connection);
+			connection.Open();
+			SqlDataReader reader = command.ExecuteReader();
+			if (reader.Read())
+			{
+				byte[] data = reader[0] as byte[];
+				if (data != null)
+				{
+					MemoryStream ms = new MemoryStream(data);
+					photo = Image.FromStream(ms); 
+				}
+			}
+			connection.Close();
+			return photo;
 		}
 	}
 }
