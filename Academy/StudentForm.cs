@@ -36,6 +36,7 @@ namespace Academy
 			DataTable data = DataBase.Connector.Select("*", "Students", $"stud_id={id}");
 			//object[] arr = data.Rows[0].ItemArray;
 			student = new Models.Student(data.Rows[0].ItemArray);
+			//https://stackoverflow.com/questions/3749224/how-can-i-convert-datarow-to-string-array
 			human = student;
 			Extract();
 			cbGroup.SelectedValue = student.group;
@@ -45,7 +46,11 @@ namespace Academy
 			base.buttonOK_Click(sender, e);
 
 			student = new Models.Student(human,Convert.ToInt32(cbGroup.SelectedValue));
-			DataBase.Connector.Insert("Students", $"{student.GetNames()}", $"{student.GetValues()}");
+			//object id = DataBase.Connector.Scalar($"SELECT stud_id FROM Students WHERE {student.GetCondition()}");
+			if (student.id == 0) DataBase.Connector.Insert("Students", $"{student.GetNames()}", $"{student.GetValues()}");
+			else DataBase.Connector.Update($"UPDATE Students SET {student.GetUpdateString()} WHERE stud_id={student.id}");
+			if(student.photo != null)
+				DataBase.Connector.UploadPhoto(student.SerializePhoto(),student.id,	"photo","Students");
 
 			//DataBase.Connector.Insert
 			//	(
