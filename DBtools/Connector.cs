@@ -113,6 +113,7 @@ AND CONSTRAINT_NAME LIKE N'PK_%'";
 
 		public void Insert(string cmd)
 		{
+			int id = 0;
 			SqlCommand command = new SqlCommand(cmd, connection);
 			connection.Open();
 			try
