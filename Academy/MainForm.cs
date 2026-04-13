@@ -115,5 +115,14 @@ namespace Academy
 			if (form.ShowDialog() == DialogResult.OK)
 				tabControl_SelectedIndexChanged(tabControl, null);
 		}
+
+		private void buttonAddTeacher_Click(object sender, EventArgs e)
+		{
+			TeacherForm form = new TeacherForm();
+			if (form.ShowDialog() == DialogResult.OK)
+			{
+				tabControl_SelectedIndexChanged(tabControl, null);
+			}
+		}
 	}
 }

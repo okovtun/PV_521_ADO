@@ -8,38 +8,42 @@ using System.Drawing;
 
 namespace Academy.Models
 {
-	class Student : Human
+	class Teacher:Human
 	{
-		internal int group;
-		public Student
+		internal string work_since;
+		internal decimal rate;
+		public Teacher
 			(
 			int id,
 			string last_name, string first_name, string middle_name,
 			string birth_date, string email, string phone, Image photo,
-			int group
+			string work_since,decimal rate
 			) : base(id, last_name, first_name, middle_name, birth_date, email, phone, photo)
 		{
-			this.group = group;
+			this.work_since = work_since;
+			this.rate = rate;
 		}
-		public Student(Human human, int group):base(human)
+		public Teacher(Human human, string work_since, decimal rate) : base(human)
 		{
-			this.group = group;
+			this.work_since = work_since;
+			this.rate = rate;
 		}
-		public Student(object[] values) : base(values)
+		public Teacher(object[] values) : base(values)
 		{
-			this.group = Convert.ToInt32(values[8]);
+			this.work_since = values[8].ToString();
+			this.rate = Convert.ToDecimal(values[9]);
 		}
 		public override string GetNames()
 		{
-			return base.GetNames()+",[group]";
+			return base.GetNames()+",work_since,rate";
 		}
 		public override string GetValues()
 		{
-			return $"{base.GetValues()},{group}";
+			return base.GetValues()+$",N'{work_since}',{rate}";
 		}
 		public override string GetCondition()
 		{
-			return base.GetCondition() + $" AND [group]={group}";
+			return base.GetCondition()+$" AND work_since=N'{work_since}' AND rate={rate}";
 		}
 		//public string GetUpdateString()
 		//{
